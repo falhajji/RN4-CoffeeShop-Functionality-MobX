@@ -1,25 +1,36 @@
-import { decorate, observable } from "mobx";
+import { decorate, observable, computed } from "mobx";
 
 class CartStore {
   items = [];
 
-  addItemToCart = addItem => {
-    console.log("HELLO HUSS", addItem);
-
-    this.items.push(addItem);
+  addItemToCart = newItem => {
+    console.log("HELLO HUSS", newItem);
+    const foundItem = this.items.find(
+      item => newItem.drink === item.drink && newItem.option === item.option
+    );
+    if (foundItem) foundItem.quantity += newItem.quantity;
+    else this.items.push(newItem);
   };
 
-  removeItemFromCart = removeItem => {
-    this.items = this.items.filter(cartItem => cartItem !== item);
+  removeItemFromCart = itemToDelete => {
+    this.items = this.items.filter(cartItem => cartItem !== itemToDelete);
   };
 
-  checkoutCart = checkOut => {
+  checkoutCart = () => {
     this.items = [];
+    alert("Thank you for ordering.");
   };
+
+  get quantity() {
+    let total = 0;
+    this.items.forEach(item => (total += item.quantity));
+    return total;
+  }
 }
 
 decorate(CartStore, {
-  items: observable
+  items: observable,
+  quantity: computed
 });
 
 export default new CartStore();

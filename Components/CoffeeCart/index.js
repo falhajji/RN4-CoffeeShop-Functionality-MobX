@@ -20,7 +20,7 @@ const CoffeeCart = () => {
   return (
     <List>
       {cartItems}
-      <Button full danger>
+      <Button full danger onPress={() => cartStore.checkoutCart(this.state)}>
         <Text>Checkout</Text>
       </Button>
     </List>

@@ -26,7 +26,8 @@ import cartStore from "../../store/cartStore";
 class CoffeeDetail extends Component {
   state = {
     drink: "Cappuccino",
-    option: "Small"
+    option: "Small",
+    quantity: 1
   };
 
   changeDrink = value => {
